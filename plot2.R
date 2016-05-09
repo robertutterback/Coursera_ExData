@@ -7,9 +7,8 @@ source("util.R")
 
 plot2 <- function(data)
 {
-    with(data, plot(datetime, Global_active_power, type="n",
-                   xlab="", ylab="Global Active Power (kilowatts)"))
-    with(data, lines(datetime, Global_active_power))
+    with(data, plot(datetime, Global_active_power, type="l",
+                    xlab="", ylab="Global Active Power (kilowatts)"))
 }
 
 main <- function()

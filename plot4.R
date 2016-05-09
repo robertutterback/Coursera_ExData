@@ -14,16 +14,14 @@ plot4 <- function(data)
     plot2(data)
     
     ## Top right
-    with(data, plot(datetime, Voltage, type="n"))
-    with(data, lines(datetime, Voltage))
+    with(data, plot(datetime, Voltage, type="l"))
 
     ## Bottom left (same as plot 3 of the assignment)
     source("plot3.R")
     plot3(data, legendBorder=FALSE)
     
     ## Bottom right
-    with(data, plot(datetime, Global_reactive_power, type="n"))
-    with(data, lines(datetime, Global_reactive_power))
+    with(data, plot(datetime, Global_reactive_power, type="l"))
 }
 
 main <- function()
