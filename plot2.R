@@ -1,4 +1,8 @@
 #!/usr/bin/Rscript
+
+## To avoid duplication, util.R contains the code to read in the
+## data. This file is included in the repo, so all plots are still
+## reproducible.
 source("util.R")
 
 plot2 <- function(data)
