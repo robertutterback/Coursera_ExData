@@ -6,16 +6,24 @@
 ## plot showing the total PM2.5 emission from all sources for each of
 ## the years 1999, 2002, 2005, and 2008.
 
+plot1 <- function(nei)
+{
+    ## Sum by year
+    data <- aggregate(Emissions ~ as.factor(year), sum, data=nei)
 
-## To avoid duplication, util.R contains the code to read in the
-## data. This file is included in the repo, so all plots are still
-## reproducible.
-source("util.R")
+    ## Scale data
+    data <- transform(data, Emissions = Emissions / 1000)
+    
+    barplot(data$Emissions, names.arg=data$year,
+            xlab="Year", ylab="PM2.5 Emissions (thousands of tons)",
+            main="Total PM2.5 Emissions by Year")    
+}
 
 main <- function()
 {
     png(filename = "plot1.png", width=480, height=480)
-    # Code here
+    nei <- readRDS("summarySCC_PM25.rds")
+    plot1(nei)
     dev.off()
 }
 
