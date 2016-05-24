@@ -9,7 +9,7 @@
 plot1 <- function(nei)
 {
     ## Sum by year
-    data <- aggregate(Emissions ~ as.factor(year), sum, data=nei)
+    data <- aggregate(Emissions ~ year, sum, data=nei)
 
     ## Scale data
     data <- transform(data, Emissions = Emissions / 1000)
