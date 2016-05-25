@@ -5,8 +5,10 @@
 ## Maryland (fips == "24510") from 1999 to 2008? Use the base plotting
 ## system to make a plot answering this question.
 
-plot2 <- function(nei, location)
+plot2 <- function(nei)
 {
+    location = "24510"
+    
     ## Sum by year, only for the given location
     data <- aggregate(Emissions ~ year, sum,
                       data=subset(nei, fips == location))
@@ -25,7 +27,7 @@ main <- function()
 {
     png(filename = "plot2.png", width=480, height=480)
     nei <- readRDS("summarySCC_PM25.rds")
-    plot2(nei, "24510")
+    plot2(nei)
     dev.off()
 }
 
