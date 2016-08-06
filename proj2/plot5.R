@@ -3,16 +3,24 @@
 ##
 ## How have emissions from motor vehicle sources changed from
 ## 1999–2008 in Baltimore City?
+library(ggplot2)
 
-## To avoid duplication, util.R contains the code to read in the
-## data. This file is included in the repo, so all plots are still
-## reproducible.
-source("util.R")
+plot5 <- function(nei, sccs, location = "24510")
+{
+    data <- aggregate(Emissions ~ year, mean,
+                      data=subset(nei, SCC %in% sccs & fips == location))
+    plt <- qplot(year, Emissions, data=data, geom="line",
+                 main="Motor Vehicle Emissions in Baltimore City")
+    print(plt)
+}
 
 main <- function()
 {
     png(filename = "plot5.png", width=480, height=480)
-    # Code here
+    nei <- readRDS("summarySCC_PM25.rds")
+    scc <- readRDS("Source_Classification_Code.rds")
+    ind <- grep("Vehicle",scc$Short.Name)
+    plot5(nei, scc[ind,]$SCC)
     dev.off()
 }
 

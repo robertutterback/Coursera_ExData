@@ -5,10 +5,8 @@
 ## Maryland (fips == "24510") from 1999 to 2008? Use the base plotting
 ## system to make a plot answering this question.
 
-plot2 <- function(nei)
+plot2 <- function(nei, location = "24510")
 {
-    location = "24510"
-    
     ## Sum by year, only for the given location
     data <- aggregate(Emissions ~ year, sum,
                       data=subset(nei, fips == location))
@@ -17,7 +15,6 @@ plot2 <- function(nei)
             
     ## Line graph alternative:
     ## with(data, plot(year, Emissions))
-
 
     title(xlab="Year", ylab="PM2.5 Emissions (tons)",
           main="PM2.5 Emissions in Baltimore by Year")

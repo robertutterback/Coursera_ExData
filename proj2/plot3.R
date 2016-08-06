@@ -6,16 +6,29 @@
 ## have seen decreases in emissions from 1999–2008 for Baltimore City?
 ## Which have seen increases in emissions from 1999–2008? Use the
 ## ggplot2 plotting system to make a plot answer this question.
+library(ggplot2)
 
-## To avoid duplication, util.R contains the code to read in the
-## data. This file is included in the repo, so all plots are still
-## reproducible.
-source("util.R")
+plot3 <- function(nei, location = "24510")
+{
+    ## The question does not specify that we should find the *total*
+    ## emission, so I've used the mean, since it handles the fact that
+    ## we have different numbers of sources throughout the years.
+
+    ##  Mean by year
+    data <- aggregate(Emissions ~ year * type, mean, 
+                      data=subset(nei, fips == location))
+
+    ## plt <- qplot(year, Emissions, facets = . ~ type, data = data)
+    plt <- qplot(year, Emissions, data = data, color=type, geom="line",
+                 main="Emissions in Baltimore City by Source Type")
+    print(plt)
+}
 
 main <- function()
 {
     png(filename = "plot3.png", width=480, height=480)
-    # Code here
+    nei <- readRDS("summarySCC_PM25.rds")
+    plot3(nei)
     dev.off()
 }
 

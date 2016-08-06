@@ -3,16 +3,24 @@
 ##
 ## Across the United States, how have emissions from coal
 ## combustion-related sources changed from 1999–2008?
+library(ggplot2)
 
-## To avoid duplication, util.R contains the code to read in the
-## data. This file is included in the repo, so all plots are still
-## reproducible.
-source("util.R")
+plot4 <- function(nei, sccs)
+{
+    data <- aggregate(Emissions ~ year, mean,
+                      data=subset(nei, SCC %in% sccs))
+    plt <- qplot(year, Emissions, data=data, geom="line",
+                 main="Coal Combustion-Related Emissions")
+    print(plt)
+}
 
 main <- function()
 {
     png(filename = "plot4.png", width=480, height=480)
-    # Code here
+    nei <- readRDS("summarySCC_PM25.rds")
+    scc <- readRDS("Source_Classification_Code.rds")
+    ind <- grep("Coal",scc$Short.Name)
+    plot4(nei, scc[ind,]$SCC)
     dev.off()
 }
 
